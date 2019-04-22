@@ -250,7 +250,7 @@ module.exports = async(location, image, fileName) => {
 
 crop 함수의 파라미터는 (x, y, width, height) 값이 오는데 이미지의 맨왼쪽위 모서리가 x,y 의 (0,0)에 해당하고 지정한 width와 height 값 만큼 crop 하는 함수다. 나는 글자가 상단에 있을경우와 하단에 있을경우를 나눠서 3등분을 하는 코드를 작성하였다.(메인사진과 글자부분 사진을 나눠서 저장하기 위해서)
 
-:heavy_check_mark: ##### 알고 있어야 하는 부분
+:heavy_check_mark:알고 있어야 하는 부분
 
 Request, Image-Size, vision, Jimp 모듈을 index.js 에서 불러오는 과정에서 문제가 있었다. request 모듈에서 url 을 이용하여 이미지를 서버에 저장을 하고 image-size, vision 등 나머지 모듈이 실행 되어야하는데 request module 이 다른 모듈과 함께 동기적으로 작동하게 하기위해서는 
 
