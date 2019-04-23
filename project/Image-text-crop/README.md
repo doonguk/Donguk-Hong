@@ -1,5 +1,19 @@
 # 이미지 crop ( text 추출 )
 
+> 실행 결과
+
+##### 입력
+
+![eec25038-0240-4c85-aa2b-f0cc3b590bd7](https://user-images.githubusercontent.com/39187116/56559659-2685ee00-65dd-11e9-9ef6-206016b7c4c8.jpeg)
+
+##### 출력
+
+![bottom-eec25038-0240-4c85-aa2b-f0cc3b590bd7](https://user-images.githubusercontent.com/39187116/56559568-f4748c00-65dc-11e9-8b40-17a2c111690a.jpeg)
+
+![top-eec25038-0240-4c85-aa2b-f0cc3b590bd7](https://user-images.githubusercontent.com/39187116/56559570-f50d2280-65dc-11e9-9076-489be294809d.jpeg)
+
+![crop-eec25038-0240-4c85-aa2b-f0cc3b590bd7](https://user-images.githubusercontent.com/39187116/56559569-f4748c00-65dc-11e9-9086-e6fd62dc7d1e.jpeg)
+
 > 사용한 기술 스택
 
 AWS s3, request 모듈, image-size 모듈, Google Vision API, Jimp 모듈
