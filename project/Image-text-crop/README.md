@@ -277,4 +277,4 @@ picStream.on('close', function() {
 request('s2 object url').pipe(picStream); 
 ```
 
-이와 같이 writeStream 이벤트 헨들러에 'close' 이벤트를 바인딩 해줌으로써 동기적으로 처리 할 수 있었다.
+이와 같이 writeStream 이벤트 헨들러에 'close' 이벤트를 바인딩 해줌으로써 순서에 맞게 처리 할 수 있었다.
