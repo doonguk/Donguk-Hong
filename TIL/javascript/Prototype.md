@@ -80,7 +80,7 @@ const foo = new Person('donguk') // Person 생성자 함수에의해 생성된 �
 //foo obj를 생성한 obj는 Person() 생성자 함수이다
 console.log(foo.constructor === Person) // true
 //Person 생성자 함수에의해 상성된 객체를 생성한 객체는 Person() 생성자 함수이다.
-console.log(Person.prototype.contructor === Function) // true
+console.log(Person.prototype.contructor === Person) // true
 //Person() 생성자함수를 생성한 객체는 Function() 생성자 함수이다.
 console.log(Person.constuctor === Function)
 ```
