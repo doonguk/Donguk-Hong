@@ -85,3 +85,61 @@ console.log(Person.prototype.contructor === Person) // true
 console.log(Person.constuctor === Function)
 ```
 
+## 4. Prototype chain
+
+자바스크립트는 특정 객체의 메소드나 프라퍼티에 접근하려고 할 때 해당 객체에 접근하려는 프로퍼티나 메소드가 없다면 인터널슬릇이 링크를 따라서 해당객체의 부모역할을 하는 프로토타입 객체의 메소드나 프라퍼티를 검색하게 된다. 이것을 프로토타입 체인이라고 한다.
+
+```js
+const student = {
+  name : 'donguk'
+}
+
+console.log(student.hasOwnProperty('name')) // true
+```
+
+student object 는 hasOwnProperty 라는 메소드를 갖고 있지 않지만 student의 __ proto __ 링크를 따라서 부모 프로토타입객체 ( Object.prototype ) 이 갖고 있는 hasOwnProperty 메소드를 호출한 것이다.
+
+```js
+const student = {
+  name : 'donguk'
+}
+
+console.log(student.hasOwnProperty('name')) // true
+console.log(student.__proto__ === Object.prototype ) // true
+console.log(Object.prototype.hasOwnProperty('hasOwnProperty')) // true
+```
+
+
+### 4-1 객체 리터럴 방식으로 생성된 프로토타입 체인
+
+> _리터럴에 관한 내용은 [여기](<https://asfirstalways.tistory.com/21>) 를 참고하였습니다._
+>
+> 잠깐! 리터럴 방식이란? 위키백과에 검색을 해보면 '컴퓨터 과학에서 리터럴이란, 소스코드의 고정된 값을 대표하는 용어이다' 그럼 상수와 비슷한 개념인가?
+>
+> 일반적으로 상수와 대조적인 말로 변수가 있다. 리터럴은 상수와 변수처럼 어떠한 값을 명칭하는게 아니라 변수및 상수에 저장되는 "값 자체"를 의미한다. ( 상수와 변수는 값을 표현 하지만 리터럴은 값 그자체를 의미 ) 함수 리터럴, 문자열 리터럴, 배열 리터럴 처럼 언어의 한 요소로서 리터럴이라고 불린다.
+>
+> 추가적으로  <u>데이터를 표현하는 방식</u>을 리터럴 이라고 한다. 일반적으로 OOP 에서는 리터럴 표기법을 지원한다.
+>
+> 리터럴 표기법이란, 변수를 선언함과 동시에 그 값을 지정해주는 표기법이다.
+>
+> ```java
+> const foo = 3
+> const var = { foo : 1 }
+> ```
+>
+> 리터럴 표기법은 비정규적인 방법이 아니다. 코드가 더 짧기 때문에 자바스크립트 인터프리터의 해석량도 줄어들며, 성능저하도 불러오지 않는다.
+
+객체 리터럴로 생성된 객체는 내부적으로 Object() 생성자 함수를 사용하여 생성된 것이다. Object() 생성자 함수는 함수이기 때문에 일반 객체와 다르게 prototype 프라퍼티를 갖는다.
+
+```js
+const student = {
+  name : 'donguk'
+}
+
+console.log(student.__proto__ === Object.prototype) // true
+console.log(Object.prototype.constructor === Object ) // true
+console.log(Object.__proto__ === Function.prototype) // true
+console.log(Function.prototype.__proto__ === Object.prototype) //true
+```
+
+
