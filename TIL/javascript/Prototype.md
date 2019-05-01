@@ -59,7 +59,7 @@ console.dir(foo) // prototype property 갖고있지 않아!
 
 - 함수객체만 가지고 있는 프라퍼티다.
 
-- **함수객체가 생성자로 사용될 때 이 함수를 통해 생성될 객체의 프로토타입 객체를 가리킨다 **
+- **함수객체가 생성자로 사용될 때 이 함수를 통해 생성될 객체의 프로토타입 객체를 가리킨다**
 
   ```js
   console.log(Peroson.prototype === foo.__proto__) //ture
@@ -80,7 +80,7 @@ const foo = new Person('donguk') // Person 생성자 함수에의해 생성된 �
 //foo obj를 생성한 obj는 Person() 생성자 함수이다
 console.log(foo.constructor === Person) // true
 //Person 생성자 함수에의해 상성된 객체를 생성한 객체는 Person() 생성자 함수이다.
-console.log(Person.prototype.contructor === Person) // true
+console.log(Person.prototype.contructor === Function) // true
 //Person() 생성자함수를 생성한 객체는 Function() 생성자 함수이다.
 console.log(Person.constuctor === Function)
 ```
