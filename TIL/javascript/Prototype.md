@@ -142,4 +142,53 @@ console.log(Object.__proto__ === Function.prototype) // true
 console.log(Function.prototype.__proto__ === Object.prototype) //true
 ```
 
+### 4-2 생성자 함수를 이용한 객체의 프로토타입 체인
 
+함수를 정의하는 방식에는 3가지가 있다
+
+- 함수선언식
+- 함수표현식
+- Functino() 생성자 함수
+
+함수선언식과 함수표현식 모두 함수 리터럴 방식을 사용한다. 함수 리터럴 방식은 Function() 생성자 함수로 함수객체 를 생성하는 것을 단순화 시킨 것이다. 결론적으로 함수를 어떤 방식으로 정의하든 Function() 생성자 함수를 이용하여 함수 객체를 생성한다. 따라서 생성된 객체의 프로토타입 객체는 Function.prototype 이다.
+
+객체의 관점에서 살펴보면, 자바스크립트에서 객체를 정의하는 방법은 3가지가 있다.
+
+| 객체 생성 방식 | 엔진의 객체 생성     | 인스턴스의 prototype 객체  |
+| :------------- | :------------------- | :------------------------- |
+| 객체 리터럴    | Object() 생성자 함수 | Object.prototype           |
+| new Object()   | Object() 생성자 함수 | Object.prototype           |
+| 생성자 함수    | 생성자 함수          | 생성자 함수 이름.prototype |
+
+```js
+function Person(name){
+	this.name = name
+}
+
+const foo = new Person('donguk')
+
+console.log(foo.__proto__ === Person.prototype) // true
+console.log(Person.prototype.__proto__ === Object.prototype) //true
+console.log(Person.__proto__ === Function.prototype) // true
+console.log(Function.prototype.__proto__ === Object.prototype ) //true
+```
+
+객체리터럴 방식이나 생성자 함수 방식이나 결국 모든 객체의 최상위 부모객체는 Object.prototype 이다. 이때 Object.prototype 객체를 **프로토타입 체인의 종점(End of prototype chain )** 이라 한다. 
+
+
+
+## 5. 프로토타입 객체의 확장
+
+```js
+function hungry(food){
+	this.food = food
+}
+
+const foo = new hungry('donguk')
+hungry.prototype.eatFood = () => {
+	console.log('happy lunch time ' + this.food)
+}
+var.eatFood()
+```
+
+생성자 함수 hungry는 foo 의 프로토타입 객체 hungry.prototype 과 prototype 프라퍼티에 의해 바인딩 되어있다. hungry.prototype 객체는 일반객체와 같이 프로퍼티를 추가/삭제 가능하다. 위의 예제에서는 eatFood 를 추가하여 hungry 생성자 함수를 통해 생성된 모든 객체는 프로토 타입 체인에 의해 부모 프로토타입 객체의 eatFood 메소드에 접근 가능하다.
