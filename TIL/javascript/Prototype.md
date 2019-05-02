@@ -192,3 +192,107 @@ var.eatFood()
 ```
 
 생성자 함수 hungry는 foo 의 프로토타입 객체 hungry.prototype 과 prototype 프라퍼티에 의해 바인딩 되어있다. hungry.prototype 객체는 일반객체와 같이 프로퍼티를 추가/삭제 가능하다. 위의 예제에서는 eatFood 를 추가하여 hungry 생성자 함수를 통해 생성된 모든 객체는 프로토 타입 체인에 의해 부모 프로토타입 객체의 eatFood 메소드에 접근 가능하다.
+
+## 6. 원시 타입(Primitive data type)의 확장
+
+자바스크립트에서는 원시타입(숫자, 문자열, boolen, null, undefined)을 제외한 모든것은 객체이다. 하지만 원시타입인 문자열은 객체와 유사하게 동작한다.
+
+```js
+const str = 'test'
+console.log(typeof str) // string
+console.log(str.constructor === String) //  true 
+console.dir(str) // test
+
+const strObj = new String('test')
+console.log(typeof strObj) //object
+console.log(strObj.constructor === String)// true
+console.dir(strObj)
+// { 0 : 't', 1 : 'e', 2 : 's', 3 : 't', length : 4, __proto__ : String, [[PrimitiveValue]] : 'test'}
+
+console.log(str.toUpperCase()) // TEST
+console.log(strObj.toUpperCase()) //TEST
+```
+
+원시타입인 str과 String() 생성자 함수로 생성한 strObj 은 분명히 타입이 다르다 ( 문자열과 객체 ). 원시타입은 객체가 아니므로 자체 프라퍼티나 메소드를 가질수 없다. 하지만 **원시타입으로 프로퍼티나 메소드를 호출할 때 원시타입과 연관된 객체로 일시적으로 변환되어 프로토타입 객체르 공유하게 된다. **
+
+
+
+```js
+const str = 'test'
+str.testFunction = function(){
+	console.log('ttttt')
+}// Not Error
+
+str.testFunction() // Uncaught TypeError : str.testFunction() is not a function
+```
+
+원시타입인 str 은 객체가 아니므로 메소드나 프로퍼티를 추가할 수 없다. 하지만 String 생성자 함수의 프로토타입 객체 String.prototype 에 메소드를 추가하면 원시타입, 객체 모두 메소드를 공유 할 수 있다. ( 원시타입이 메소드에 접근할 때 객체로 일시적으로 변환되어 프로토타입 객체를 공유 하니까 )
+
+```js
+const str = 'test'
+String.prototype.testFunction = function(){
+	console.log('what?')
+}
+str.testFunction() // 'what?'
+```
+
+이는 String, Number, Array 객체 등이 가지고 있는 표준 메소드는 프로토타입 객체인 String.prototype, Number.prototype, Array.prototype 등에 정의 되어있다. 이들 프로토타입 또한 Object.prototype를 프로토타입 체인에 의해 자신의 프로토타입 객체로 연결한다.
+
+```js
+const str = 'test'
+String.prototype.sayHello = () => {
+	console.log('Hi!')
+}
+console.log(str.sayHello()) // 'Hi!'
+console.log(str.__proto__ === String.prototype ) // true
+console.log(String.prototype.__proto__ === Object.prototype ) // true
+console.log(String.prototype.constructor === String )//true
+console.log(String.__proto__ === Function.prototype )//true
+console.log(Function.prototype.__proto__ === Object.prototype ) //true
+```
+
+
+
+## 7. 프로토타입 객체의 변경
+
+객체를 생성할 때 프로토타입이 결정된다. 결정된 프로토타입 객체는 임의의 객체로 변경될 수 있다. 이를 이용하여 객체의 상속을 구현할 수 있다.
+
+```js
+function Person(name){
+    this.name = name
+}
+
+const foo = new Person('donguk')
+Person.prototype = { gender : 'male'}
+const bar = new Person('dongdong')
+console.log(foo.gender) // undefined
+console.log(bar.gender) // 'male'
+
+console.log(foo.constructor) // Person(name)
+console.log(bar.constructor) // Object()
+```
+
+프로토타입 객체의 변경이전 선언된 foo 의 contructor 프로퍼니는 부모 프로토타입 객체인 Person() 생성자 함수를 가리킨다. 하지만 프로토타입 객체 변경이후 선언된 bar 객체의 경우 Person() 생성자함수의 prototype 프로퍼티가 가리키는 프로토타입 객체를 일반객체로 변경하면서 Person.prototype.constructor 프로퍼티도 삭제되었다. 따라서 bar.constructor 의 값은 프로토타입 체이닝에의해 Object.prototype.constructor 즉 Object() 생성자 함수가 된다.
+
+## 8. 프로토타입 체인 동작 조건
+
+객체가 프로퍼티를 참조하는경우, 해당  객체에 프로퍼티가 없는 경우 프로토타입 체인이 동작한다.
+
+**객체의 프로퍼티에 값을 할당하는 경우, 프로토타입 체인이 동작하지 않는다. 이는 해당 객체가 프로퍼티가 없는경우 값을 동적으로 할당하고, 프로퍼티가 있는경우 값을 재할당 하기 때문이다**
+
+```js
+function Person(name){
+	this.name = name
+}
+Person.prototype.gender = 'male'
+const foo = new Person('donguk')
+const bar = new Person('dongdong')
+console.log(foo.gender) // 'male' , 프로퍼티를 참조하니까 프로토타입 체인발생
+console.log(bar.gender) // 'male'
+
+foo.gender('female') // foo 객체의 gender 프로퍼티에 값 할당
+console.log(foo.gender) // female
+console.log(bar.gender) // male
+```
+
+foo 객체의 gender 프로퍼티에 값을 할당하면 프로토타입 체인이 발생하여 Person.prototype 객체의 gender 프로퍼티에 값을 할당하는 것이 아니라 foo 객체에 gender 프로퍼티를 동적으로 추가한다.
