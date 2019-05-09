@@ -1,5 +1,10 @@
 # Crop-Vision
 
+<br/>
+
+> 소스코드는 [여기](https://github.com/mbxd1/Image-Crop)에 있습니다.
+
+<br/>
 
 
 #### 시작하기
@@ -7,7 +12,7 @@
 - 준비 작업
 
 ```bash
-$ git clone https://github.com/WePlanet/crop-vision.git
+$ git clone https://github.com/mbxd1/Image-Crop.git
 $ cd crop-vision
 $ npm i
 ```
