@@ -28,7 +28,9 @@ RegExp 객체의 생성자 함수를 호출 하는 방법이다. 정규식 실�
 
 ##### [^xyz]
 
-[xyz] 와 반대로 [ ] 안의 문자와 일치하지 않는 문자에 대응된다. 예를들어  ^abc 는 'bisket' 의 i 에 대응된다. ( 활용 : [알고리즘 스킬트리 문제](https://github.com/mbxd1/playground/blob/master/Algorithm/%EC%8A%A4%ED%82%AC%ED%8A%B8%EB%A6%AC(20190417)/solution.md) 
+[xyz] 와 반대로 [ ] 안의 문자와 일치하지 않는 문자에 대응된다. 예를들어  ^abc 는 'bisket' 의 i 에 대응된다. ( 활용 : [알고리즘 스킬트리 문제](
+https://github.com/mbxd1/Donguk-Hong/blob/master/Algorithm/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%20%EB%AC%B8%EC%A0%9C%ED%92%80%EC%9D%B4%2020190417.md
+)
 에서 다른분의 solution )  
 
 <br/>
